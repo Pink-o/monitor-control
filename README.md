@@ -135,7 +135,7 @@ Configuration is split into two types:
 1. **Global Config** (`~/.config/monitor-control/config.yaml`) - Profiles, application settings, and default color mode names
 2. **Per-Monitor Config** (`~/.config/monitor-control/monitors/<monitor_id>.yaml`) - Monitor-specific settings like color modes, brightness, contrast
 
-Per-monitor config files are created automatically when you connect a new monitor. The monitor ID is derived from the model and serial number (e.g., `BenQ_RD280UA_J2S0240801Q.yaml`).
+Per-monitor config files are created automatically when you connect a new monitor. The monitor ID is derived from the model and serial number (e.g., `BenQ_RD280UA_ABC12345.yaml`).
 
 #### Global Config
 
@@ -184,8 +184,8 @@ adaptive_contrast:
 Each monitor gets its own config file with settings specific to that display:
 
 ```yaml
-# ~/.config/monitor-control/monitors/BenQ_RD280UA_J2S0240801Q.yaml
-monitor_id: BenQ_RD280UA_J2S0240801Q
+# ~/.config/monitor-control/monitors/BenQ_RD280UA_ABC12345.yaml
+monitor_id: BenQ_RD280UA_ABC12345
 color_modes:
   Cinema: 50
   Dark Theme: 48
