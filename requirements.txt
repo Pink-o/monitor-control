@@ -1,0 +1,17 @@
+# Monitor Control Dependencies
+
+# GUI
+customtkinter>=5.0.0
+
+# Image processing (for icons, screenshots)
+Pillow>=9.0.0
+mss>=6.0.0
+
+# Configuration
+PyYAML>=6.0
+
+# Window monitoring (optional, for X11)
+python-xlib>=0.33
+
+# Numerical operations (for screen analysis)
+numpy>=1.20.0

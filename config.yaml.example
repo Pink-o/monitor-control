@@ -1,0 +1,272 @@
+# BenQ RD280UA Monitor Control Configuration
+# ===========================================
+
+monitor:
+  # Monitor identifier (use 'ddcutil detect' to find)
+  # Can be: display number, serial, or model name
+  identifier: "RD280UA"
+  
+  # DDC/CI communication settings
+  ddc:
+    retry_count: 3
+    sleep_multiplier: 1.0  # Increase if communication is unreliable
+
+# VCP Feature Codes for BenQ RD280UA
+# Discovered via 'ddcutil --display 1 capabilities'
+vcp_codes:
+  brightness: 0x10
+  contrast: 0x12
+  color_preset: 0xDC    # Display Mode / Picture mode
+  color_temp: 0x14      # Color temperature (5000K=4, 6500K=5, 9300K=8, User1=11)
+  input_source: 0x60
+  red_gain: 0x16
+  green_gain: 0x18
+  blue_gain: 0x1A
+  sharpness: 0x87
+  color_saturation: 0x8A
+  
+# Color mode mappings for BenQ RD280UA (VCP 0xDC)
+# Identified from your monitor's OSD
+color_modes:
+  sRGB: 10             # 0x0a - sRGB color space
+  M-book: 15           # 0x0f - Mac-like colors
+  User: 18             # 0x12 - User/Custom mode
+  ePaper: 31           # 0x1f - Low blue light (great for coding)
+  HDR: 35              # 0x23 - High dynamic range
+  Dark Theme: 48       # 0x30 - Dark theme mode
+  Light Theme: 49      # 0x31 - Light theme mode
+  Cinema: 50           # 0x32 - Cinema mode for movies
+  
+# Color temperature presets (VCP 0x14)
+color_temps:
+  5000k: 4     # 0x04 - Warm
+  6500k: 5     # 0x05 - Neutral (sRGB)
+  9300k: 8     # 0x08 - Cool
+  user1: 11    # 0x0b - Custom
+
+# Application profiles - match window class or title patterns
+profiles:
+  # Coding/IDE profile
+  - name: "coding"
+    priority: 10
+    match:
+      # Match by WM_CLASS (more reliable) or window title
+      window_class:
+        - "code"
+        - "Code"
+        - "cursor"
+        - "Cursor"
+        - "jetbrains-*"
+        - "vim"
+        - "nvim"
+        - "emacs"
+        - "sublime_text"
+        - "Alacritty"
+        - "kitty"
+        - "gnome-terminal"
+        - "konsole"
+      window_title:
+        - "*Visual Studio Code*"
+        - "*Cursor*"
+    # Only apply when fullscreen (optional)
+    require_fullscreen: false
+    # Per-profile auto settings (modifiable via GUI, saved automatically)
+    auto_brightness: false
+    auto_contrast: false
+    settings:
+      color_preset: ePaper
+      brightness: 35
+      contrast: 50
+      
+  # Video/Media profile
+  - name: "video"
+    priority: 20
+    match:
+      window_class:
+        - "vlc"
+        - "mpv"
+        - "totem"
+        - "celluloid"
+        - "firefox"
+        - "chromium"
+        - "chrome"
+      window_title:
+        - "*YouTube*"
+        - "*Netflix*"
+        - "*Prime Video*"
+        - "*VLC*"
+        - "*mpv*"
+    require_fullscreen: true  # Only activate in fullscreen
+    auto_brightness: false  # Fixed brightness for video
+    auto_contrast: false    # Fixed contrast for video
+    settings:
+      color_preset: Dark Theme  # Was Rec.709 on the OSD
+      brightness: 50
+      contrast: 55
+
+  # Browser profile
+  - name: "browser"
+    priority: 8
+    match:
+      window_class:
+        - "firefox"
+        - "Firefox"
+        - "Navigator"
+        - "chromium"
+        - "Chromium"
+        - "chrome"
+        - "Google-chrome"
+        - "brave"
+        - "Brave-browser"
+      window_title: []
+    require_fullscreen: false
+    # Per-profile auto settings (modifiable via GUI, saved automatically)
+    auto_brightness: false
+    auto_contrast: false
+    settings:
+      color_preset: sRGB
+      brightness: 40
+      contrast: 50
+
+  # Gaming profile
+  - name: "gaming"
+    priority: 25
+    match:
+      window_class:
+        - "steam_app_*"
+        - "Steam"
+        - "lutris"
+      window_title: []
+    require_fullscreen: true
+    auto_brightness: false
+    auto_contrast: false
+    settings:
+      color_preset: User
+      brightness: 45
+      contrast: 60
+
+  # CAD/3D modeling profile  
+  - name: "cad"
+    priority: 15
+    match:
+      window_class:
+        - "freecad"
+        - "FreeCAD"
+        - "blender"
+        - "Blender"
+        - "openscad"
+        - "kicad"
+      window_title: []
+    require_fullscreen: false
+    auto_brightness: false
+    auto_contrast: false
+    settings:
+      color_preset: HDR
+      brightness: 40
+      contrast: 50
+
+  # Photo editing profile
+  - name: "photo"
+    priority: 15
+    match:
+      window_class:
+        - "gimp*"
+        - "Gimp*"
+        - "darktable"
+        - "rawtherapee"
+        - "inkscape"
+      window_title: []
+    require_fullscreen: false
+    auto_brightness: false  # Stable brightness for color accuracy
+    auto_contrast: false    # Stable contrast for color accuracy
+    settings:
+      color_preset: sRGB
+      brightness: 40
+      contrast: 50
+
+  # Night/Darkroom profile (manual activation or time-based)
+  - name: "darkroom"
+    priority: 5
+    match:
+      # This profile is mainly for manual activation
+      window_class: []
+      window_title: []
+    require_fullscreen: false
+    auto_brightness: false
+    auto_contrast: false
+    settings:
+      color_preset: Cinema
+      brightness: 25
+      contrast: 45
+
+# Default profile when no application matches
+default_profile:
+  name: "default"
+  auto_brightness: false
+  auto_contrast: false
+  settings:
+    color_preset: standard
+    brightness: 40
+    contrast: 50
+
+# Adaptive contrast based on screen content
+adaptive_contrast:
+  enabled: true
+  # Analysis interval in seconds
+  interval: 5
+  # Region to analyze: "fullscreen", "center", "active_window"
+  region: "fullscreen"
+  # Contrast adjustment range
+  min_contrast: 30
+  max_contrast: 70
+  # Brightness thresholds for screen content
+  dark_threshold: 0.3    # Below this = dark content
+  bright_threshold: 0.7  # Above this = bright content
+  # Smoothing factor (0-1, higher = slower transitions)
+  smoothing: 0.1  # Low = faster response to screen changes
+  # Don't adjust when a profile is active (false = auto adjust always works)
+  respect_profiles: false
+
+# Time-based adjustments (optional)
+time_schedules:
+  enabled: false
+  schedules:
+    - name: "day"
+      start: "08:00"
+      end: "20:00"
+      settings:
+        brightness: 45
+        color_temp: 6500  # K
+    - name: "evening"
+      start: "20:00"
+      end: "23:00"
+      settings:
+        brightness: 35
+        color_temp: 5000
+    - name: "night"
+      start: "23:00"
+      end: "08:00"
+      settings:
+        brightness: 25
+        color_temp: 3500  # Warm
+
+# GUI settings
+gui:
+  # System tray icon
+  tray_icon: true
+  # Quick overlay style: "osd" (monitor-like) or "panel" (side panel)
+  overlay_style: "osd"
+  # Overlay position: "center", "bottom-center", "top-right"
+  overlay_position: "bottom-center"
+  # Overlay auto-hide delay in seconds (0 = never hide)
+  overlay_timeout: 0
+  # Show notifications on profile change
+  notifications: true
+  # Theme: "dark", "light", "system"
+  theme: "dark"
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "~/.local/share/monitor-control/monitor-control.log"
+

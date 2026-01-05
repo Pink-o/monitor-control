@@ -1,0 +1,34 @@
+# Systemd user service for Monitor Control
+# 
+# Installation:
+#   Run: ./install.sh
+#   Or manually:
+#     mkdir -p ~/.config/systemd/user
+#     cp monitor-control.service ~/.config/systemd/user/
+#     # Edit the ExecStart path to match your installation
+#     systemctl --user daemon-reload
+#     systemctl --user enable monitor-control
+#     systemctl --user start monitor-control
+#
+# Check status:
+#   systemctl --user status monitor-control
+#   journalctl --user -u monitor-control -f
+
+[Unit]
+Description=Monitor Control - DDC/CI monitor management
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=INSTALL_DIR/venv/bin/python INSTALL_DIR/main.py --no-gui
+Restart=on-failure
+RestartSec=5
+
+# Environment for X11/Wayland
+Environment=DISPLAY=:0
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+
+[Install]
+WantedBy=default.target
+
+

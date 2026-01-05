@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Monitor Control
+Comment=DDC/CI Monitor Control for Linux
+Exec=INSTALL_DIR/venv/bin/python INSTALL_DIR/main.py
+Icon=INSTALL_DIR/assets/icon.png
+Terminal=false
+Type=Application
+Categories=Utility;Settings;HardwareSettings;
+Keywords=monitor;display;brightness;contrast;ddc;
+StartupNotify=true
+StartupWMClass=monitor-control

@@ -1,0 +1,25 @@
+# Include important files
+include LICENSE
+include README.md
+include requirements.txt
+include config.yaml.example
+include install.sh
+include monitor-control.desktop
+include monitor-control.service
+
+# Include assets
+recursive-include assets *.png *.ico
+
+# Include patches
+recursive-include patches *.patch *.sh
+
+# Exclude development and test files
+exclude .gitignore
+prune tests
+prune venv
+prune .venv
+prune __pycache__
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *~
+

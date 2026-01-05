@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Local configuration (user-specific)
+# Keep config.yaml.example as template
+# config.yaml  # Uncomment if you want to track your config
+
+# Per-monitor configs are stored in ~/.config/monitor-control/
+# They should not be in the repo
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Build artifacts
+*.manifest
+*.spec
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# Screenshots from testing
+*.png
+!assets/*.png
+
