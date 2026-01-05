@@ -70,4 +70,5 @@ htmlcov/
 # Screenshots from testing
 *.png
 !assets/*.png
+!docs/*.png
 
