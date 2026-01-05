@@ -275,6 +275,26 @@ This was a known bug (lambda closure issue) that has been fixed. If you experien
    python main.py --debug 2>&1 | grep "display_num"
    ```
 
+### Wayland: Window Position Always (0,0)
+
+**On Wayland**, some applications report their position as (0,0) due to security restrictions. This affects per-monitor profile switching.
+
+**Symptoms:**
+- Profile changes apply to wrong monitor
+- Debug shows `position: (0, 0)` for windows not at top-left
+
+**Affected:**
+- Some Electron apps
+- Some GTK4 applications
+- Snap applications (also have detection issues)
+
+**Workarounds:**
+1. Use manual profile selection for affected apps
+2. Keep work-related windows on primary monitor
+3. Consider using X11 session for full multi-monitor profile support
+
+See [Wayland Setup - Known Limitations](Wayland-Setup.md#known-limitations) for details.
+
 ## Best Practices
 
 ### 1. Name Your Monitors Distinctly

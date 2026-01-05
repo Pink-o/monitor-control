@@ -362,6 +362,49 @@ adaptive_settings:
 
 ## Wayland-Specific Issues
 
+> **Note:** See [Wayland Setup - Known Limitations](Wayland-Setup.md#known-limitations) for detailed information.
+
+### Snap applications not detected
+
+**Cause:** Snap's sandboxing prevents AT-SPI from accessing window information.
+
+**Symptoms:**
+- Window class shows as "unknown" or empty
+- Auto profile switching doesn't trigger
+
+**Workarounds:**
+1. Install via apt/dnf instead of Snap
+2. Use Flatpak versions (better AT-SPI support)
+3. Manually select profiles
+
+**Commonly affected:**
+- Firefox (Snap on Ubuntu 22.04+)
+- VS Code (Snap version)
+- Chromium (Snap version)
+
+### Window position always (0,0) in multi-monitor
+
+**Cause:** Wayland security prevents absolute position access for some apps.
+
+**Symptoms:**
+- Profile switches apply to wrong monitor
+- Debug log shows `position: (0, 0)` for windows not at top-left
+
+**Affected apps:**
+- Some Electron apps
+- Some GTK4 applications
+- Certain XWayland applications
+
+**Workarounds:**
+1. Keep related windows on primary monitor
+2. Manually select profiles
+3. Disable per-monitor profile isolation
+
+**Diagnosis:**
+```bash
+python main.py --debug 2>&1 | grep -E "position|geometry"
+```
+
 ### Window detection not working
 
 **Solutions:**

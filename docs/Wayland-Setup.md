@@ -8,11 +8,13 @@ Monitor Control works on both X11 and Wayland, but Wayland requires additional s
 |---------|--------|-------|
 | DDC/CI Control | ✅ Full | Brightness, contrast, color modes, RGB |
 | Multi-Monitor | ✅ Full | Per-monitor configs and settings |
-| Application Profiles | ✅ Full | Automatic switching |
-| Window Detection | ✅ Full | AT-SPI + libwnck hybrid |
+| Application Profiles | ⚠️ Limited | Snap apps not detected; some apps report wrong position |
+| Window Detection | ⚠️ Limited | Snap apps invisible; some apps report (0,0) position |
 | GUI | ✅ Full | CustomTkinter works natively |
-| Adaptive Brightness | ⚠️ Setup Required | Needs screenshot tool |
+| Adaptive Brightness | ⚠️ Setup Required | Needs screenshot tool (~2.5s capture) |
 | Screen Analysis | ⚠️ Setup Required | Needs screenshot tool |
+
+> ⚠️ **Known Limitations:** See [Known Limitations](#known-limitations) section for details on Snap apps and window position issues.
 
 ## Screen Capture Setup
 
@@ -339,6 +341,96 @@ Look for:
 - "Wayland detected"
 - "Using gnome-screenshot-silent"
 - "Window: <app_name>"
+
+## Known Limitations
+
+Wayland's security model introduces some limitations that don't exist on X11:
+
+### Snap Applications Not Detected
+
+**Problem:** Applications installed via Snap are not recognized by the window monitor.
+
+**Cause:** Snap's sandboxing prevents AT-SPI from accessing window information for confined applications.
+
+**Affected features:**
+- Automatic profile switching won't trigger for Snap apps
+- Window class detection shows as "unknown" or empty
+
+**Workarounds:**
+1. Install the application via apt/dnf instead of Snap when possible
+2. Use Flatpak versions (better AT-SPI support in most cases)
+3. Manually select profiles for Snap applications
+
+**Example affected apps:**
+- Firefox (Snap version on Ubuntu 22.04+)
+- Chromium (Snap version)
+- VS Code (Snap version)
+- Other Ubuntu Snap-packaged applications
+
+### Window Position Reports (0,0) for Some Apps
+
+**Problem:** Some applications report their window position as (0,0) regardless of actual screen location in multi-monitor setups.
+
+**Cause:** Wayland doesn't expose absolute window coordinates to applications for security reasons. The app relies on compositor-specific methods (AT-SPI, libwnck) which may not accurately report positions for all applications.
+
+**Affected features:**
+- Auto profile switching may apply to wrong monitor
+- Per-monitor profile isolation doesn't work for affected apps
+
+**Known affected applications:**
+- Some Electron-based apps
+- Some GTK4 applications
+- XWayland applications with certain window managers
+
+**Workarounds:**
+1. Disable "Fullscreen Only" mode - profiles will switch on window focus regardless of monitor
+2. Use manual profile selection for problematic applications
+3. Keep related windows on the primary monitor
+
+### Limited XWayland Support
+
+**Problem:** Applications running under XWayland (X11 compatibility layer) may have inconsistent behavior.
+
+**Symptoms:**
+- Window class detected but position wrong
+- Profile switches but on wrong monitor
+- Intermittent detection failures
+
+**Workaround:** Install libwnck for better XWayland support:
+```bash
+sudo apt install gir1.2-wnck-3.0
+```
+
+### Comparison: X11 vs Wayland
+
+| Feature | X11 | Wayland |
+|---------|-----|---------|
+| Window detection | ✅ All apps | ⚠️ Most apps (not Snap) |
+| Window position | ✅ Accurate | ⚠️ Some apps report 0,0 |
+| Multi-monitor profiles | ✅ Full | ⚠️ Limited for some apps |
+| Screen capture | ✅ Fast (~30ms) | ⚠️ Slower (~2.5s) |
+| Snap apps | ✅ Works | ❌ Not detected |
+
+### Checking if Your App is Affected
+
+Run with debug logging to see window detection:
+
+```bash
+python main.py --debug 2>&1 | grep -E "Window:|position|geometry"
+```
+
+If you see:
+- `Window: unknown` or empty → App not detected (likely Snap)
+- `position: (0, 0)` for a window not at top-left → Position detection issue
+
+### Reporting Issues
+
+When reporting Wayland-related issues, please include:
+
+1. Desktop environment (GNOME, KDE, Sway, etc.)
+2. Application name and how it was installed (apt, snap, flatpak)
+3. Output of: `python main.py --debug 2>&1 | head -50`
+4. Output of: `echo $XDG_SESSION_TYPE`
 
 ## Next Steps
 
