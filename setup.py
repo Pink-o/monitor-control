@@ -17,7 +17,7 @@ setup(
     description="DDC/CI based monitor control for Linux with automatic profile switching",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/YOUR_USERNAME/monitor-control",
+    url="https://github.com/Pink-o/monitor-control",
     packages=find_packages(),
     include_package_data=True,
     package_data={

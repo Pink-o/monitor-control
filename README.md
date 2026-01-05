@@ -72,7 +72,7 @@ The GUI provides:
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/monitor-control.git
+git clone https://github.com/Pink-o/monitor-control.git
 cd monitor-control
 
 # Copy example config (optional - app creates default on first run)
