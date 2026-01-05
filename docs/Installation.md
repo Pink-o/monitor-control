@@ -68,7 +68,7 @@ Most monitors have DDC/CI disabled by default. Enable it in your monitor's OSD:
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/monitor-control.git
+git clone https://github.com/Pink-o/monitor-control.git
 cd monitor-control
 
 # Create virtual environment
@@ -90,7 +90,7 @@ python main.py
 The install script automates the setup process:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/monitor-control.git
+git clone https://github.com/Pink-o/monitor-control.git
 cd monitor-control
 ./install.sh
 ```

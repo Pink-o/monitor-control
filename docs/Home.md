@@ -17,7 +17,7 @@ Monitor Control is a Linux desktop application that controls your monitor's sett
 
 ```bash
 # Clone and install
-git clone https://github.com/YOUR_USERNAME/monitor-control.git
+git clone https://github.com/Pink-o/monitor-control.git
 cd monitor-control
 python3 -m venv venv
 source venv/bin/activate
@@ -57,8 +57,8 @@ python main.py
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/YOUR_USERNAME/monitor-control/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/YOUR_USERNAME/monitor-control/discussions)
+- **Issues**: [GitHub Issues](https://github.com/Pink-o/monitor-control/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Pink-o/monitor-control/discussions)
 
 ## License
 
