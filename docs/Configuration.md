@@ -146,11 +146,12 @@ adaptive_contrast:
   respect_profiles: false    # Override profile settings
 ```
 
-### Time Schedules Section (Optional)
+### Time Schedules Section (Not Implemented)
 
-Time-based automatic adjustments:
+> ⚠️ **Note:** Time-based scheduling is **not currently implemented**. This is a planned feature for a future release. The configuration below is for reference only.
 
 ```yaml
+# PLANNED FEATURE - NOT YET IMPLEMENTED
 time_schedules:
   enabled: false
   schedules:
@@ -172,6 +173,14 @@ time_schedules:
       settings:
         brightness: 25
         color_temp: 3500
+```
+
+**Workaround:** Use external tools like `cron` with command-line options:
+```bash
+# Example crontab entries
+0 8 * * * /path/to/venv/bin/python /path/to/main.py --brightness 45
+0 20 * * * /path/to/venv/bin/python /path/to/main.py --brightness 35
+0 23 * * * /path/to/venv/bin/python /path/to/main.py --brightness 25
 ```
 
 ### GUI Section

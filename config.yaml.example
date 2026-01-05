@@ -227,28 +227,39 @@ adaptive_contrast:
   # Don't adjust when a profile is active (false = auto adjust always works)
   respect_profiles: false
 
-# Time-based adjustments (optional)
-time_schedules:
-  enabled: false
-  schedules:
-    - name: "day"
-      start: "08:00"
-      end: "20:00"
-      settings:
-        brightness: 45
-        color_temp: 6500  # K
-    - name: "evening"
-      start: "20:00"
-      end: "23:00"
-      settings:
-        brightness: 35
-        color_temp: 5000
-    - name: "night"
-      start: "23:00"
-      end: "08:00"
-      settings:
-        brightness: 25
-        color_temp: 3500  # Warm
+# Time-based adjustments (NOT IMPLEMENTED)
+# time_schedules:
+#   enabled: false
+#   schedules:
+#     - name: "day"
+#       start: "08:00"
+#       end: "20:00"
+#       settings:
+#         brightness: 45
+#         color_temp: 6500  # K
+#     - name: "evening"
+#       start: "20:00"
+#       end: "23:00"
+#       settings:
+#         brightness: 35
+#         color_temp: 5000
+#     - name: "night"
+#       start: "23:00"
+#       end: "08:00"
+#       settings:
+#         brightness: 25
+#         color_temp: 3500  # Warm
+# Use cron as a workaround:
+#   0 8 * * * /path/to/venv/bin/python /path/to/main.py --brightness 45
+#   0 20 * * * /path/to/venv/bin/python /path/to/main.py --brightness 35
+# time_schedules:
+#   enabled: false
+#   schedules:
+#     - name: "day"
+#       start: "08:00"
+#       end: "20:00"
+#       settings:
+#         brightness: 45
 
 # GUI settings
 gui:
