@@ -26,7 +26,8 @@ Designed for the **BenQ RD280UA** but works with any DDC/CI compatible monitor.
 
 ## Screenshot
 
-![Monitor Control GUI](https://via.placeholder.com/400x600?text=Monitor+Control+GUI)
+![Monitor Overview GUI](docs/Overview.png)
+![Monitor Settings GUI](docs/Benq.png)
 
 The GUI provides:
 - Brightness & Contrast sliders (0-100)
@@ -316,31 +317,7 @@ The application works on both **X11** and **Wayland**, but with some differences
 
 Wayland's security model prevents applications from capturing the screen directly. You need to install a screenshot tool that supports Wayland:
 
-#### Option 1: Flameshot (Recommended - Works on GNOME & KDE)
-
-```bash
-# Ubuntu/Debian
-sudo apt install flameshot
-
-# Fedora
-sudo dnf install flameshot
-
-# Arch
-sudo pacman -S flameshot
-```
-
-> **Note:** Flameshot may show a brief flash notification on each capture.
-
-#### Option 2: gnome-screenshot (GNOME only)
-
-```bash
-# Ubuntu/Debian
-sudo apt install gnome-screenshot
-```
-
-> **Note:** Standard gnome-screenshot plays a camera shutter sound on each capture.
-
-#### Option 3: Build Silent gnome-screenshot (GNOME - Recommended)
+#### Option 1: Build Silent gnome-screenshot (GNOME - Recommended)
 
 For a truly silent experience on GNOME Wayland (no screen flash), use the included build script:
 
@@ -388,6 +365,30 @@ The app automatically checks for the silent version before falling back to stand
 3. `gnome-screenshot` (system default, has flash)
 
 No configuration needed - just build and install, the app will use it automatically.
+
+#### Option 2: Flameshot (Universal - Works on GNOME & KDE)
+
+```bash
+# Ubuntu/Debian
+sudo apt install flameshot
+
+# Fedora
+sudo dnf install flameshot
+
+# Arch
+sudo pacman -S flameshot
+```
+
+> **Note:** Flameshot may show a brief flash notification on each capture.
+
+#### Option 3: gnome-screenshot (GNOME only - has flash)
+
+```bash
+# Ubuntu/Debian
+sudo apt install gnome-screenshot
+```
+
+> **Note:** Standard gnome-screenshot shows a screen flash on each capture, which can be distracting.
 
 #### Option 4: grim (Sway/wlroots only)
 
