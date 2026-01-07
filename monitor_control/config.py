@@ -50,9 +50,9 @@ class Profile:
     priority: int
     match: ProfileMatch
     settings: ProfileSettings
-    require_fullscreen: bool = False
     auto_brightness: Optional[bool] = None  # None = inherit global setting
     auto_contrast: Optional[bool] = None    # None = inherit global setting
+    # Note: require_fullscreen was removed - use fullscreen_only in MonitorConfig instead
     
     @classmethod
     def from_dict(cls, data: Dict[str, Any], color_modes: Dict[str, int]) -> 'Profile':
@@ -80,9 +80,9 @@ class Profile:
                 green_gain=settings_data.get('green_gain'),
                 blue_gain=settings_data.get('blue_gain'),
             ),
-            require_fullscreen=data.get('require_fullscreen', False),
             auto_brightness=data.get('auto_brightness'),  # None, true, or false
             auto_contrast=data.get('auto_contrast'),      # None, true, or false
+            # Note: require_fullscreen is silently ignored for backward compatibility
         )
 
 

@@ -68,8 +68,6 @@ profiles:
       window_title:
         - "*Visual Studio Code*"
         - "*Cursor*"
-    # Only apply when fullscreen (optional)
-    require_fullscreen: false
     # Per-profile auto settings (modifiable via GUI, saved automatically)
     auto_brightness: false
     auto_contrast: false
@@ -96,7 +94,6 @@ profiles:
         - "*Prime Video*"
         - "*VLC*"
         - "*mpv*"
-    require_fullscreen: true  # Only activate in fullscreen
     auto_brightness: false  # Fixed brightness for video
     auto_contrast: false    # Fixed contrast for video
     settings:
@@ -119,7 +116,6 @@ profiles:
         - "brave"
         - "Brave-browser"
       window_title: []
-    require_fullscreen: false
     # Per-profile auto settings (modifiable via GUI, saved automatically)
     auto_brightness: false
     auto_contrast: false
@@ -137,7 +133,6 @@ profiles:
         - "Steam"
         - "lutris"
       window_title: []
-    require_fullscreen: true
     auto_brightness: false
     auto_contrast: false
     settings:
@@ -157,7 +152,6 @@ profiles:
         - "openscad"
         - "kicad"
       window_title: []
-    require_fullscreen: false
     auto_brightness: false
     auto_contrast: false
     settings:
@@ -176,7 +170,6 @@ profiles:
         - "rawtherapee"
         - "inkscape"
       window_title: []
-    require_fullscreen: false
     auto_brightness: false  # Stable brightness for color accuracy
     auto_contrast: false    # Stable contrast for color accuracy
     settings:
@@ -191,7 +184,6 @@ profiles:
       # This profile is mainly for manual activation
       window_class: []
       window_title: []
-    require_fullscreen: false
     auto_brightness: false
     auto_contrast: false
     settings:
